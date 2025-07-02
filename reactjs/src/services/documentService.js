@@ -1,6 +1,6 @@
 // src/services/documentService.js
 export async function generateDocument(data) {
-    const response = await fetch("http://127.0.0.1:8000/generate-document", {
+    const response = await fetch("https://hoso-vayvon-1.onrender.com/generate-document", {
         method: "POST",
         headers: {
             "Content-Type": "application/json",
