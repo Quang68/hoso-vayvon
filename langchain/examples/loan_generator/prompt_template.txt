@@ -1,0 +1,23 @@
+Bạn là một nhân viên tín dụng. Hãy viết đơn vay vốn ngân hàng theo đúng mẫu hành chính.  
+Chỉ in ra đơn, không thêm giải thích, không thêm hướng dẫn, không thêm chữ ký.
+Chỉ in ra nội dung đơn vay vốn theo định dạng hành chính. Không thêm bất kỳ giải thích, suy nghĩ hoặc thẻ <think>.
+
+Thông tin:
+- Họ tên: {name}
+- Địa chỉ: {address}
+- Số tiền vay: {amount} triệu đồng
+
+===> Mẫu đơn:
+
+CỘNG HÒA XÃ HỘI CHỦ NGHĨA VIỆT NAM  
+Độc lập - Tự do - Hạnh phúc  
+
+Kính gửi: Ngân hàng
+
+Tôi tên là {name}, hiện cư trú tại {address}.  
+Tôi làm đơn này để xin vay số tiền {amount} triệu đồng nhằm mục đích cá nhân.
+
+Tôi cam kết hoàn trả đầy đủ và đúng hạn theo quy định của ngân hàng.
+
+Trân trọng kính chào!  
+{name}

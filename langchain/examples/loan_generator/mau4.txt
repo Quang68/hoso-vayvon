@@ -1,0 +1,22 @@
+</think><think>
+Được yêu cầu của người dùng, tôi cần tạo một đơn vay vốn ngân hàng theo đúng mẫu hành chính. Trước tiên, tôi xem xét kỹ lưỡng yêu cầu của họ. Họ muốn một lá đơn đơn giản, chỉ in ra đơn mà không cần thêm bất kỳ giải thích, hướng dẫn hay chữ ký nào.
+
+Tôi nhận thấy họ đã cung cấp một mẫu đơn cụ thể, bao gồm các thông tin như họ tên, địa chỉ và số tiền vay. Do đó, tôi cần đảm bảo rằng khi thay thế các placeholder bằng thông tin thực tế, đơn vẫn giữ nguyên cấu trúc và định dạng.
+
+Tôi cũng chú ý đến yêu cầu không thêm bất kỳ nội dung nào ngoài đơn, vì vậy tôi sẽ tránh đưa vào các phần giải thích hoặc hướng dẫn. Mục tiêu là đáp ứng đúng và đủ theo yêu cầu của người dùng.
+
+Cuối cùng, tôi sẽ kiểm tra lại để đảm bảo rằng tất cả các thông tin được điền đầy đủ và chính xác, đồng thời duy trì đúng format của mẫu đơn đã cung cấp.
+</think>
+
+CỘNG HÒA XÃ HỘI CHỦ NGHĨA VIỆT NAM  
+Độc lập - Tự do - Hạnh phúc  
+
+Kính gửi: Ngân hàng
+
+Tôi tên là {name}, hiện cư trú tại {address}.  
+Tôi làm đơn này để xin vay số tiền {amount} triệu đồng nhằm mục đích cá nhân.
+
+Tôi cam kết hoàn trả đầy đủ và đúng hạn theo quy định của ngân hàng.
+
+Trân trọng kính chào!  
+{name}

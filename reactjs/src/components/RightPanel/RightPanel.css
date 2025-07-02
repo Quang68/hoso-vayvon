@@ -1,0 +1,19 @@
+/* src/components/RightPanel.css */
+
+.right-panel {
+  width: 30%;
+  padding: 1rem;
+  background-color: #f4f4f4;
+}
+
+.right-panel ul {
+  list-style: none;
+  padding-left: 0;
+}
+
+.right-panel li {
+  background: #fff;
+  padding: 8px;
+  margin-bottom: 6px;
+  border-radius: 4px;
+}

@@ -1,0 +1,55 @@
+/* src/components/LeftPanel.css */
+
+/* src/components/LeftPanel/LeftPanel.css */
+.left-panel {
+    width: 300px;
+    background-color: #f8f9fa;
+    height: 100vh;
+    overflow-y: auto;
+}
+
+
+.section {
+  margin-bottom: 20px;
+}
+
+.menu-list {
+  list-style: none;
+  padding: 0;
+}
+
+.menu-list li {
+  border: 1px solid #e0e0e0; /* Màu xám nhạt hơn */
+  padding: 10px 12px;
+  margin-bottom: 8px;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+}
+
+.menu-list li:hover {
+  background-color: #f0f0f0;
+}
+
+
+.search-input {
+  width: 100%;
+  padding: 8px;
+  margin-bottom: 10px;
+  border-radius: 4px;
+  border: 1px solid #ccc;
+}
+
+.new-customer-button {
+  width: 100%;
+  padding: 8px;
+  background-color: #28a745;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.new-customer-button:hover {
+  background-color: #218838;
+}

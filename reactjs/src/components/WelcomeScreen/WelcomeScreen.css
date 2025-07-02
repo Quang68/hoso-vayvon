@@ -1,0 +1,32 @@
+/* src/components/WelcomeScreen.css */
+
+.welcome-container {
+  text-align: center;
+  padding-top: 100px;
+}
+
+.welcome-title {
+  font-size: 24px;
+  margin-bottom: 20px;
+}
+
+.welcome-buttons {
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+}
+
+.welcome-button {
+  padding: 10px 20px;
+  font-size: 16px;
+  cursor: pointer;
+  background-color: #007bff;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  transition: background-color 0.3s ease;
+}
+
+.welcome-button:hover {
+  background-color: #0056b3;
+}
