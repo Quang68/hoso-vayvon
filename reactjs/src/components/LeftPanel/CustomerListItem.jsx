@@ -8,7 +8,7 @@ const CustomerListItem = ({ customer, onClick }) => {
             onClick={() => onClick?.(customer)}
             style={{ cursor: "pointer" }}
         >
-            🧑‍💼 {customer.id} - {customer.name}
+            {customer.id} - {customer.name}
         </li>
     );
 };
