@@ -1,11 +1,11 @@
 // src/components/LeftPanel/LoanTypeItem.jsx
 import React from "react";
 
-const LoanTypeItem = ({ type, onClick }) => {
+const LoanTypeItem = ({ type, onClick, selected }) => {
     return (
         <li
-            className="list-group-item list-group-item-action"
-            onClick={() => onClick?.(type)}
+            className={`list-group-item list-group-item-action ${selected ? "active" : ""}`}
+            onClick={onClick}
             style={{ cursor: "pointer" }}
         >
             📄 {type.name}

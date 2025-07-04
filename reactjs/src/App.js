@@ -7,16 +7,23 @@ import "./App.css";
 
 function App() {
   const [selectedCustomer, setSelectedCustomer] = useState(null);
+  const [selectedLoanType, setSelectedLoanType] = useState(null);
 
-  const handleCreateNewCustomer = () => {
-    alert("👉 Chức năng tạo khách hàng mới sẽ xử lý tại đây!");
-  };
+
 
   return (
     <div className="App">
       <div className="main-layout">
-        <LeftPanel onCreateNewCustomer={handleCreateNewCustomer} />
-        <MiddlePanel />
+        {/* Truyền hàm setSelectedCustomer xuống LeftPanel */}
+        <LeftPanel
+          onSelectCustomer={setSelectedCustomer}
+          onSelectLoanType={setSelectedLoanType}
+        />
+
+
+        <MiddlePanel selectedLoanType={selectedLoanType} />
+
+        {/* Truyền selectedCustomer sang RightPanel */}
         <RightPanel selectedCustomer={selectedCustomer} />
       </div>
     </div>

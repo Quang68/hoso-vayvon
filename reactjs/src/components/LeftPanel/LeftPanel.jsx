@@ -1,13 +1,43 @@
 // src/components/LeftPanel/LeftPanel.jsx
 import React, { useEffect, useState } from "react";
 import "./LeftPanel.css";
-import { fetchLoanTypes, fetchCustomers } from "../../services/firestoreService";
+import { fetchLoanTypes, fetchCustomers, createNewCustomer } from "../../services/firestoreService";
 import LoanTypeItem from "./LoanTypeItem";
 import CustomerListItem from "./CustomerListItem";
 
-const LeftPanel = ({ onCreateNewCustomer }) => {
+const LeftPanel = ({ onCreateNewCustomer, onSelectCustomer, onSelectLoanType }) => {
     const [loanTypes, setLoanTypes] = useState([]);
     const [customers, setCustomers] = useState([]);
+    const [selectedCustomerId, setSelectedCustomerId] = useState(null);
+    const [selectedLoanTypeId, setSelectedLoanTypeId] = useState(null); // Thêm state để lưu ID khách hàng đã chọn
+
+
+    const handleCreateCustomer = async () => {
+        const newCustomer = await createNewCustomer();
+
+        // Cập nhật vào danh sách
+        setCustomers((prev) => [newCustomer, ...prev]);
+
+        // Nếu component cha có truyền callback thì gọi lại
+        if (onCreateNewCustomer) onCreateNewCustomer(newCustomer);
+    };
+
+    // Hàm này sẽ được gọi khi người dùng chọn một khách hàng
+    const handleSelectCustomer = (customerId) => {
+        const customer = customers.find(c => c.id === customerId);
+        setSelectedCustomerId(customerId);
+
+        // Gọi hàm từ App để truyền customer được chọn
+        if (onSelectCustomer) onSelectCustomer(customer);
+    };
+
+    // Hàm này sẽ được gọi khi người dùng chọn một loại hồ sơ
+    const handleSelectLoanType = (loanType) => {
+        setSelectedLoanTypeId(loanType.id);
+        if (onSelectLoanType) onSelectLoanType(loanType); // ✅ truyền cả object
+    };
+
+
 
     useEffect(() => {
         const getData = async () => {
@@ -26,6 +56,7 @@ const LeftPanel = ({ onCreateNewCustomer }) => {
         getData();
     }, []);
 
+
     return (
         <div className="left-panel p-3 border-end">
             {/* Khu vực loại hồ sơ */}
@@ -33,9 +64,15 @@ const LeftPanel = ({ onCreateNewCustomer }) => {
                 <h5><i className="bi bi-folder"></i> Loại hồ sơ</h5>
                 <ul className="list-group">
                     {loanTypes.map((type) => (
-                        <LoanTypeItem key={type.id} type={type} />
+                        <LoanTypeItem
+                            key={type.id}
+                            type={type}
+                            selected={selectedLoanTypeId === type.id}
+                            onClick={() => handleSelectLoanType(type)} // ✅ truyền object
+                        />
                     ))}
                 </ul>
+
             </div>
 
             <hr />
@@ -45,7 +82,7 @@ const LeftPanel = ({ onCreateNewCustomer }) => {
                 <h5><i className="bi bi-person-fill"></i> Khách hàng</h5>
 
                 {/* Nút khách hàng mới ở đầu */}
-                <button className="btn btn-primary w-100 mb-3" onClick={onCreateNewCustomer}>
+                <button className="btn btn-primary w-100 mb-3" onClick={handleCreateCustomer}>
                     <i className="bi bi-person-fill-add"></i> Khách hàng mới
                 </button>
 
@@ -59,7 +96,12 @@ const LeftPanel = ({ onCreateNewCustomer }) => {
                 {/* Danh sách khách hàng */}
                 <ul className="list-group">
                     {customers.map((customer) => (
-                        <CustomerListItem key={customer.id} customer={customer} />
+                        <CustomerListItem
+                            key={customer.id}
+                            customer={customer}
+                            onClick={() => handleSelectCustomer(customer.id)}
+                            selected={selectedCustomerId === customer.id}
+                        />
                     ))}
                 </ul>
             </div>
