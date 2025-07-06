@@ -49,7 +49,7 @@ const LeftPanel = ({ onCreateNewCustomer, onSelectCustomer, onSelectLoanType }) 
                 setLoanTypes(types);
                 setCustomers(customersData);
             } catch (error) {
-                console.error("❌ Lỗi khi lấy dữ liệu:", error);
+                console.error("Lỗi khi lấy dữ liệu:", error);
             }
         };
 

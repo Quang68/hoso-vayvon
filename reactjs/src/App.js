@@ -8,6 +8,7 @@ import "./App.css";
 function App() {
   const [selectedCustomer, setSelectedCustomer] = useState(null);
   const [selectedLoanType, setSelectedLoanType] = useState(null);
+  const [selectedDocumentContent, setSelectedDocumentContent] = useState(null);
 
 
 
@@ -17,14 +18,23 @@ function App() {
         {/* Truyền hàm setSelectedCustomer xuống LeftPanel */}
         <LeftPanel
           onSelectCustomer={setSelectedCustomer}
-          onSelectLoanType={setSelectedLoanType}
+          onSelectLoanType={(loanType) => {
+            setSelectedLoanType(loanType);
+            setSelectedDocumentContent(null); // Reset khi chọn loại hồ sơ
+          }}
         />
 
 
-        <MiddlePanel selectedLoanType={selectedLoanType} />
+        <MiddlePanel
+          selectedLoanType={selectedLoanType}
+          selectedDocumentContent={selectedDocumentContent}
+        />
 
         {/* Truyền selectedCustomer sang RightPanel */}
-        <RightPanel selectedCustomer={selectedCustomer} />
+        <RightPanel
+          selectedCustomer={selectedCustomer}
+          onSelectDocument={(doc) => setSelectedDocumentContent(doc?.Document_Content || "")}
+        />
       </div>
     </div>
   );

@@ -4,12 +4,14 @@ import "./RightPanel.css";
 import { fetchCustomerDocuments } from "../../services/firestoreService";
 import DocumentListItem from "./DocumentListItem";
 
-const RightPanel = ({ selectedCustomer }) => {
+const RightPanel = ({ selectedCustomer, onSelectDocument }) => {
     const [documents, setDocuments] = useState([]);
     const [selectedDocumentId, setSelectedDocumentId] = useState(null);
 
     const handleSelectDocument = (docId) => {
         setSelectedDocumentId(docId);
+        const doc = documents.find(d => d.id === docId);
+        if (onSelectDocument) onSelectDocument(doc); //truyền nguyên document về
     };
 
     useEffect(() => {
