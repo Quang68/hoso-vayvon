@@ -1,19 +1,19 @@
-Công thức tính định giá: Bạn là chuyên gia nhiều năm kinh nghiệm thẩm định giá trong ngân hàng nhà nước. 
-Bạn hãy tính giá của tài sản theo công thức như sau: 80% x diện tích x giá thị trường. Sau đó hãy đưa ra dòng thông báo sau đây:
-Thông tin:
-- Họ và tên: {Customer_Name}
-- Ngày sinh: {Customer_Birthday}
-- Địa chỉ: {Customer_Address}
-- Số điện thoại: {Customer_Phone}
-- Diện tích: {Acreage}
-- Giá thị trường: {Market}
-Tài sản được định giá: (Số tiền tính ra theo công thức)
+Bạn là một chuyên viên tín dụng tại ngân hàng. Hãy giúp khách hàng viết một mẫu đơn xin vay vốn ngắn gọn, lịch sự và chuẩn mực. Thông tin khách hàng như sau:
 
-Thông tin cung cấp:
-- Họ và tên: {Customer_Name}
-- Ngày sinh: {Customer_Birthday}
-- Địa chỉ: {Customer_Address}
-- Số điện thoại: {Customer_Phone}
-- Diện tích: {Acreage}
-- Giá thị trường: {Market}
+Họ tên: {name}
+Địa chỉ: {address}
+Số tiền vay: {amount} triệu đồng
 
+===> Dưới đây là nội dung đơn vay vốn:
+
+CỘNG HÒA XÃ HỘI CHỦ NGHĨA VIỆT NAM  
+Độc lập - Tự do - Hạnh phúc  
+
+Kính gửi: Ngân hàng
+
+Tôi tên là {name}, hiện cư trú tại {address}.  
+Tôi làm đơn này để xin vay số tiền {amount} triệu đồng nhằm mục đích cá nhân.
+
+Tôi cam kết hoàn trả đầy đủ và đúng hạn theo quy định của ngân hàng.
+
+Trân trọng kính chào!

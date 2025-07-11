@@ -21,6 +21,15 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
+# Test endpoint để kiểm tra CORS và kết nối
+@app.get("/test")
+async def test_connection():
+    return {"message": "API đang hoạt động!", "status": "ok"}
+
+@app.get("/")
+async def root():
+    return {"message": "LangChain Loan Generator API", "status": "running"}
+
 # Định nghĩa schema nhận từ frontend
 class DynamicData(BaseModel):
     system_prompt: str
@@ -64,13 +73,21 @@ async def generate_document(payload: DynamicData):
             payload.system_prompt, payload.prompt, payload.data
         )
         
-        print("\n✨ ENRICHED DATA (sau khi LLM xử lý):")
-        print("-" * 40)
+        print("\n📦📤 JSON GỬI CHO TEMPLATE - BẮT ĐẦU")
+        print("=" * 60)
         print(json.dumps(enriched, ensure_ascii=False, indent=2))
+        print("=" * 60)
+        print("📦📤 JSON GỬI CHO TEMPLATE - KẾT THÚC\n")
+
 
         # 2. Render template DOCX từ dữ liệu đã enrich
         print("\n📄 BƯỚC 2: Render template DOCX...")
         print(f"Template ID sử dụng: {payload.template_id}")
+        print("\n🟨🟨🟨 JSON GỬI CHO TEMPLATE - BẮT ĐẦU 🟨🟨🟨")
+        print("=" * 80)
+        print(json.dumps(enriched, ensure_ascii=False, indent=2))
+        print("=" * 80)
+        print("🟨🟨🟨 JSON GỬI CHO TEMPLATE - KẾT THÚC 🟨🟨🟨\n")
         docx_path = template_adapter.render_docx(payload.template_id, enriched)
         print(f"✅ DOCX file tạo tại: {docx_path}")
 
@@ -90,20 +107,32 @@ async def generate_document(payload: DynamicData):
         print("\n🎉 HOÀN THÀNH!")
         print("=" * 60)
         
-        return {
+        # Extract valuation để hiển thị riêng
+        valuation_value = enriched.get("Valuation", None)
+        print(f"💰 VALUATION FINAL: {valuation_value}")
+        
+        response_data = {
             "status": "success",
             "document_url": file_url,
             "content": enriched["output"],
             "file_id": file_id,
             "enriched_data": enriched,  # ← React có thể dùng để lưu Firebase
-            "valuation": enriched.get("Valuation", None),  # ← Extract riêng cho dễ dùng
+            "valuation": valuation_value,  # ← Extract riêng cho dễ dùng
             "metadata": {
                 "customer_id": payload.customer_id,
                 "document_name": payload.document_name,
                 "document_type_id": payload.document_type_id,
-                "template_id": payload.template_id
+                "template_id": payload.template_id,
+                "timestamp": enriched.get("timestamp", None)
             }
         }
+        
+        print("\n📤 RESPONSE DATA:")
+        print("-" * 30)
+        print(json.dumps(response_data, ensure_ascii=False, indent=2))
+        print("-" * 30)
+        
+        return response_data
 
     except Exception as e:
         print(f"\n❌ LỖI XỬ LÝ: {str(e)}")
