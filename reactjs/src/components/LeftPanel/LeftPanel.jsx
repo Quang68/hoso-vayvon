@@ -42,6 +42,7 @@ const LeftPanel = ({ onCreateNewCustomer, onSelectCustomer, onSelectLoanType }) 
     useEffect(() => {
         const getData = async () => {
             try {
+                console.log("🔄 Đang tải dữ liệu từ Firestore...");
                 const types = await fetchLoanTypes();
                 const customersData = await fetchCustomers();
                 console.log("✅ Loại hồ sơ:", types);
@@ -49,7 +50,8 @@ const LeftPanel = ({ onCreateNewCustomer, onSelectCustomer, onSelectLoanType }) 
                 setLoanTypes(types);
                 setCustomers(customersData);
             } catch (error) {
-                console.error("Lỗi khi lấy dữ liệu:", error);
+                console.error("❌ Lỗi khi lấy dữ liệu:", error);
+
             }
         };
 
@@ -60,25 +62,26 @@ const LeftPanel = ({ onCreateNewCustomer, onSelectCustomer, onSelectLoanType }) 
     return (
         <div className="left-panel p-3 border-end">
             {/* Khu vực loại hồ sơ */}
-            <div className="mb-4">
+            <div className="loan-types-section">
                 <h5><i className="bi bi-folder"></i> Loại hồ sơ</h5>
-                <ul className="list-group">
-                    {loanTypes.map((type) => (
-                        <LoanTypeItem
-                            key={type.id}
-                            type={type}
-                            selected={selectedLoanTypeId === type.id}
-                            onClick={() => handleSelectLoanType(type)} // ✅ truyền object
-                        />
-                    ))}
-                </ul>
-
+                <div className="loan-types-list">
+                    <ul className="list-group">
+                        {loanTypes.map((type) => (
+                            <LoanTypeItem
+                                key={type.id}
+                                type={type}
+                                selected={selectedLoanTypeId === type.id}
+                                onClick={() => handleSelectLoanType(type)} // ✅ truyền object
+                            />
+                        ))}
+                    </ul>
+                </div>
             </div>
 
             <hr />
 
             {/* Khu vực khách hàng */}
-            <div>
+            <div className="customers-section">
                 <h5><i className="bi bi-person-fill"></i> Khách hàng</h5>
 
                 {/* Nút khách hàng mới ở đầu */}
@@ -94,16 +97,18 @@ const LeftPanel = ({ onCreateNewCustomer, onSelectCustomer, onSelectLoanType }) 
                 />
 
                 {/* Danh sách khách hàng */}
-                <ul className="list-group">
-                    {customers.map((customer) => (
-                        <CustomerListItem
-                            key={customer.id}
-                            customer={customer}
-                            onClick={() => handleSelectCustomer(customer.id)}
-                            selected={selectedCustomerId === customer.id}
-                        />
-                    ))}
-                </ul>
+                <div className="customers-list">
+                    <ul className="list-group">
+                        {customers.map((customer) => (
+                            <CustomerListItem
+                                key={customer.id}
+                                customer={customer}
+                                onClick={() => handleSelectCustomer(customer.id)}
+                                selected={selectedCustomerId === customer.id}
+                            />
+                        ))}
+                    </ul>
+                </div>
             </div>
         </div>
     );

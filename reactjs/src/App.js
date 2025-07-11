@@ -28,6 +28,7 @@ function App() {
         <MiddlePanel
           selectedLoanType={selectedLoanType}
           selectedDocumentContent={selectedDocumentContent}
+          selectedCustomer={selectedCustomer}
         />
 
         {/* Truyền selectedCustomer sang RightPanel */}

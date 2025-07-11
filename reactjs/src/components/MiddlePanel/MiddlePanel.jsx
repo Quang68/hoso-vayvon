@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { generateDocument } from "../../services/documentService";
 import "./MiddlePanel.css";
 
-const MiddlePanel = ({ selectedLoanType, selectedDocumentContent }) => {
+const MiddlePanel = ({ selectedLoanType, selectedDocumentContent, selectedCustomer }) => {
     const [formData, setFormData] = useState({});
     const [output, setOutput] = useState("");
     const [isLoading, setIsLoading] = useState(false);
@@ -33,6 +33,10 @@ const MiddlePanel = ({ selectedLoanType, selectedDocumentContent }) => {
         console.log("Dữ liệu gửi đến documentService:", formData);
         try {
             const result = await generateDocument({
+                customer_id: selectedCustomer?.id,
+                document_name: selectedLoanType.name,
+                template_id: selectedLoanType.template_id,
+                document_type_id: selectedLoanType.id,
                 system_prompt: selectedLoanType.system_prompt || "",
                 prompt: selectedLoanType.prompt,
                 data: {

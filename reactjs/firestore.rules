@@ -1,0 +1,13 @@
+// Firestore Security Rules - CHỈ DÙNG CHO DEVELOPMENT
+// ⚠️ CẢNH BÁO: Rules này cho phép mọi người đọc/ghi dữ liệu
+// Chỉ sử dụng khi đang phát triển và test
+
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+    // Cho phép đọc/ghi tất cả collections trong development
+    match /{document=**} {
+      allow read, write: if true;
+    }
+  }
+}

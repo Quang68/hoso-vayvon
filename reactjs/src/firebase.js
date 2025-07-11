@@ -4,13 +4,13 @@ import { getFirestore } from "firebase/firestore";
 
 // Dán đoạn cấu hình Firebase bạn đã copy ở bước 2
 const firebaseConfig = {
-    apiKey: "AIzaSyCi4rCNLsl3r2aysjmx2Bw3xCr9a0pP2Tw",
-    authDomain: "hosovayvon-30fa1.firebaseapp.com",
-    projectId: "hosovayvon-30fa1",
-    storageBucket: "hosovayvon-30fa1.firebasestorage.app",
-    messagingSenderId: "906779846144",
-    appId: "1:906779846144:web:3922937969341255061ae5",
-    measurementId: "G-V7JNCRFC1Y"
+    apiKey: "AIzaSyBmpc9Sw-ctqA3SPZbP8ZgFaupdpK7n-d8",
+    authDomain: "hoso-ce966.firebaseapp.com",
+    projectId: "hoso-ce966",
+    storageBucket: "hoso-ce966.firebasestorage.app",
+    messagingSenderId: "122551702489",
+    appId: "1:122551702489:web:104442723011928a237fc8",
+    measurementId: "G-HKQB4PTCZ0"
 };
 
 // Khởi tạo Firebase app
