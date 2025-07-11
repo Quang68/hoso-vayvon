@@ -5,11 +5,37 @@ import tempfile
 import io
 import os
 
+# 🔧 CẤU HÌNH: Hybrid approach
+USE_OAUTH2_FOR_UPLOAD = True     # OAuth2 cho upload (tránh quota error)
+USE_SERVICE_ACCOUNT_FOR_DOWNLOAD = True  # Service Account cho download (có quyền truy cập template)
+
+# Service Account setup
 SCOPES = ['https://www.googleapis.com/auth/drive']
-# Đường dẫn tuyệt đối đến credentials
 SERVICE_ACCOUNT_FILE = os.path.join(os.path.dirname(os.path.dirname(__file__)), 'credentials.json')
-creds = service_account.Credentials.from_service_account_file(SERVICE_ACCOUNT_FILE, scopes=SCOPES)
-service = build('drive', 'v3', credentials=creds)
+service_account_creds = service_account.Credentials.from_service_account_file(SERVICE_ACCOUNT_FILE, scopes=SCOPES)
+service_account_service = build('drive', 'v3', credentials=service_account_creds)
+
+# OAuth2 setup
+if USE_OAUTH2_FOR_UPLOAD:
+    try:
+        from .gdrive_oauth_service import get_authenticated_service
+    except ImportError:
+        # Fallback for direct execution
+        import sys
+        import os
+        sys.path.append(os.path.dirname(__file__))
+        from gdrive_oauth_service import get_authenticated_service
+    print("🔄 Hybrid: OAuth2 cho upload, Service Account cho download")
+    print("� Hybrid: OAuth2 cho upload, Service Account cho download")
+
+def get_service_for_download():
+    return service_account_service
+
+def get_service_for_upload():
+    if USE_OAUTH2_FOR_UPLOAD:
+        return get_authenticated_service()
+    else:
+        return service_account_service
 
 TEMPLATE_FOLDER_ID = "1XUg-J-ycI1i5SFEwgYahyrHuXHfv6dD7"  # thư mục chứa template
 
@@ -19,9 +45,10 @@ def download_template_from_drive(file_id):
         print(f"🔍 Đang download file với ID: {file_id}")
         
         # Lấy thông tin file trước
+        service = get_service_for_download()
         file_metadata = service.files().get(fileId=file_id, fields="id,name").execute()
         file_name = file_metadata.get("name", "unknown")
-        print(f"� Tên file: {file_name}")
+        print(f"📄 Tên file: {file_name}")
         
         # Tạo request download
         request = service.files().get_media(fileId=file_id)
@@ -56,6 +83,8 @@ def upload_file_to_drive(file_path: str, filename: str):
             raise FileNotFoundError(f"File không tồn tại: {file_path}")
         
         print(f"📤 Uploading file: {filename}")
+        
+        service = get_service_for_upload()
         
         # Metadata cho file
         file_metadata = {
@@ -93,6 +122,7 @@ def upload_file_to_drive(file_path: str, filename: str):
 def test_connection():
     """Test kết nối với Google Drive"""
     try:
+        service = get_service_for_download()
         results = service.files().list(pageSize=1).execute()
         print("✅ Kết nối Google Drive thành công!")
         return True
@@ -103,6 +133,7 @@ def test_connection():
 def list_files_in_folder():
     """List tất cả files trong template folder"""
     try:
+        service = get_service_for_download()
         results = service.files().list(
             q=f"'{TEMPLATE_FOLDER_ID}' in parents",
             fields="files(id, name, mimeType, size)"
@@ -123,6 +154,7 @@ def list_files_in_folder():
 def delete_file_from_drive(file_id: str):
     """Xóa file từ Google Drive"""
     try:
+        service = get_service_for_upload()
         service.files().delete(fileId=file_id).execute()
         print(f"✅ Đã xóa file: {file_id}")
         return True
