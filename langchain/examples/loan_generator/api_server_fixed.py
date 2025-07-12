@@ -16,7 +16,7 @@ app = FastAPI()
 app.add_middleware(
     CORSMiddleware,
     allow_origins=["*"],            # Cho phép tất cả frontend
-    allow_credentials=False,        # Phải False nếu allow_origins = ["*"]
+    allow_credentials=True,        # Phải False nếu allow_origins = ["*"]
     allow_methods=["*"],
     allow_headers=["*"],
 )
